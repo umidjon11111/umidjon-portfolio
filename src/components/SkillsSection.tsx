@@ -298,12 +298,12 @@ const SkillsSection = () => {
 
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] floating" />
-      <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px] floating-delayed" />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] floating hidden md:block" />
+      <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px] floating-delayed hidden md:block" />
 
-      {/* Grid Pattern */}
+      {/* Grid Pattern - Hidden on mobile */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.02] hidden sm:block"
         style={{
           backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
                            linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
@@ -311,55 +311,64 @@ const SkillsSection = () => {
         }}
       />
 
-      {/* Decorative Code Symbols */}
-      <div className="absolute top-20 left-10 text-6xl font-mono text-primary/5 animate-float">
+      {/* Decorative Code Symbols - Hidden on mobile */}
+      <div className="absolute top-20 left-10 text-4xl md:text-6xl font-mono text-primary/5 animate-float hidden lg:block">
         &lt;/&gt;
       </div>
-      <div className="absolute top-1/3 right-10 text-6xl font-mono text-purple-500/5 animate-float-delayed">
-        {}
+      <div className="absolute top-1/3 right-10 text-4xl md:text-6xl font-mono text-purple-500/5 animate-float-delayed hidden lg:block">
+        {"{ }"}
       </div>
-      <div className="absolute bottom-20 left-1/4 text-6xl font-mono text-blue-500/5 animate-float">
+      <div className="absolute bottom-20 left-1/4 text-4xl md:text-6xl font-mono text-blue-500/5 animate-float hidden lg:block">
         =&gt;
       </div>
 
-      <div className="container mx-auto relative z-10">
+      <div className="container mx-auto relative z-10 px-4 sm:px-6 md:px-8">
         {/* Header */}
-        <div className="text-center mb-16 space-y-6 animate-fade-up">
+        <div className="text-center mb-12 sm:mb-16 space-y-4 sm:space-y-6 animate-fade-up">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm">
-            <Zap size={16} className="text-primary animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm">
+            <Zap
+              size={14}
+              className="sm:w-4 sm:h-4 text-primary animate-pulse"
+            />
             <span className="text-primary font-bold text-xs tracking-wider uppercase">
               {t("skills.subtitle")}
             </span>
-            <TrendingUp size={16} className="text-primary" />
+            <TrendingUp size={14} className="sm:w-4 sm:h-4 text-primary" />
           </div>
 
           {/* Title */}
           <div>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4 leading-tight px-4">
               <span className="gradient-text">{t("skills.title")}</span>
             </h2>
-            <div className="h-1 w-32 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full mx-auto" />
+            <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full mx-auto" />
           </div>
 
           {/* Stats */}
-          <div className="flex items-center justify-center gap-6 pt-4">
+          <div className="flex items-center justify-center gap-4 sm:gap-6 pt-2 sm:pt-4">
             <div className="text-center">
-              <div className="text-3xl font-black gradient-text">15+</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black gradient-text">
+                15+
+              </div>
               <div className="text-xs text-muted-foreground font-semibold">
                 Technologies
               </div>
             </div>
-            <div className="w-px h-10 bg-border"></div>
+            <div className="w-px h-8 sm:h-10 bg-border"></div>
             <div className="text-center">
-              <div className="text-3xl font-black gradient-text">3+</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black gradient-text">
+                3+
+              </div>
               <div className="text-xs text-muted-foreground font-semibold">
                 Years Exp
               </div>
             </div>
-            <div className="w-px h-10 bg-border"></div>
+            <div className="w-px h-8 sm:h-10 bg-border"></div>
             <div className="text-center">
-              <div className="text-3xl font-black gradient-text">95%</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black gradient-text">
+                95%
+              </div>
               <div className="text-xs text-muted-foreground font-semibold">
                 Proficiency
               </div>
@@ -368,34 +377,41 @@ const SkillsSection = () => {
         </div>
 
         {/* Enhanced Tabs */}
-        <div className="flex justify-center mb-12 animate-fade-up-delay-1">
-          <div className="inline-flex items-center gap-2 p-2 rounded-2xl bg-secondary/60 backdrop-blur-xl border border-border/50 shadow-2xl">
+        <div className="flex justify-center mb-8 sm:mb-12 animate-fade-up-delay-1 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl sm:rounded-2xl bg-secondary/60 backdrop-blur-xl border border-border/50 shadow-2xl min-w-max">
             {categories.map((category, index) => {
               const Icon = category.icon;
               return (
                 <button
                   key={index}
                   onClick={() => setActiveTab(index)}
-                  className={`group relative px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 ${
+                  className={`group relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 whitespace-nowrap ${
                     activeTab === index
                       ? "text-primary bg-background shadow-lg scale-105"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
                     <Icon
-                      size={18}
-                      className={activeTab === index ? "animate-pulse" : ""}
+                      size={14}
+                      className={`sm:w-[18px] sm:h-[18px] ${
+                        activeTab === index ? "animate-pulse" : ""
+                      }`}
                     />
-                    {t(category.titleKey)}
+                    <span className="hidden sm:inline">
+                      {t(category.titleKey)}
+                    </span>
+                    <span className="sm:hidden">
+                      {t(category.titleKey).split(" ")[0]}
+                    </span>
                   </span>
                   {activeTab === index && (
                     <>
                       <span
-                        className={`absolute inset-0 bg-gradient-to-r ${category.gradient} opacity-10 rounded-xl blur-xl`}
+                        className={`absolute inset-0 bg-gradient-to-r ${category.gradient} opacity-10 rounded-lg sm:rounded-xl blur-xl`}
                       />
                       <span
-                        className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r ${category.gradient} rounded-full`}
+                        className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 sm:h-1 bg-gradient-to-r ${category.gradient} rounded-full`}
                       />
                     </>
                   )}
@@ -406,8 +422,8 @@ const SkillsSection = () => {
         </div>
 
         {/* Skills Grid */}
-        <div className="max-w-5xl mx-auto mb-12">
-          <div className="grid md:grid-cols-2 gap-6">
+        <div className="max-w-5xl mx-auto mb-8 sm:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {categories[activeTab].skills.map((skill, index) => (
               <div
                 key={skill.name}
@@ -416,23 +432,23 @@ const SkillsSection = () => {
                 onMouseEnter={() => setHoveredSkill(skill.name)}
                 onMouseLeave={() => setHoveredSkill(null)}
               >
-                {/* Glow Effect */}
+                {/* Glow Effect - Hidden on mobile */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-20 rounded-2xl blur-2xl transition-all duration-500`}
+                  className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-20 rounded-2xl blur-2xl transition-all duration-500 hidden sm:block`}
                 />
 
                 {/* Card */}
-                <div className="relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-6 rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div className="relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                   {/* Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       <div
-                        className={`w-12 h-12 rounded-xl bg-gradient-to-br ${skill.color} flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${skill.color} flex items-center justify-center text-xl sm:text-2xl shadow-lg group-hover:scale-110 transition-transform`}
                       >
                         {skill.icon}
                       </div>
                       <div>
-                        <span className="font-bold text-foreground text-lg block">
+                        <span className="font-bold text-foreground text-base sm:text-lg block">
                           {skill.name}
                         </span>
                         <span className="text-xs text-muted-foreground">
@@ -446,21 +462,21 @@ const SkillsSection = () => {
                     </div>
                     <div className="text-right">
                       <div
-                        className={`text-3xl font-black bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}
+                        className={`text-2xl sm:text-3xl font-black bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}
                       >
                         {skill.level}%
                       </div>
                       {hoveredSkill === skill.name && (
                         <Award
-                          size={16}
-                          className="text-yellow-500 mx-auto mt-1 animate-bounce"
+                          size={14}
+                          className="sm:w-4 sm:h-4 text-yellow-500 mx-auto mt-1 animate-bounce hidden sm:block"
                         />
                       )}
                     </div>
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="relative h-3 bg-secondary/50 rounded-full overflow-hidden backdrop-blur-sm">
+                  <div className="relative h-2 sm:h-3 bg-secondary/50 rounded-full overflow-hidden backdrop-blur-sm">
                     <div
                       className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out shadow-lg`}
                       style={{
@@ -477,7 +493,7 @@ const SkillsSection = () => {
                   </div>
 
                   {/* Level Indicator */}
-                  <div className="flex justify-between mt-2 text-xs font-semibold text-muted-foreground">
+                  <div className="flex justify-between mt-1.5 sm:mt-2 text-xs font-semibold text-muted-foreground">
                     <span>Beginner</span>
                     <span>Expert</span>
                   </div>
@@ -489,10 +505,10 @@ const SkillsSection = () => {
 
         {/* Additional Skills Tags */}
         <div className="text-center animate-fade-up-delay-2">
-          <h3 className="text-xl font-bold text-foreground mb-6">
+          <h3 className="text-lg sm:text-xl font-bold text-foreground mb-4 sm:mb-6">
             More Technologies
           </h3>
-          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-4xl mx-auto">
             {[
               "Redux",
               "Prisma",
@@ -511,7 +527,7 @@ const SkillsSection = () => {
             ].map((skill, i) => (
               <span
                 key={skill}
-                className="group px-5 py-2.5 rounded-xl bg-secondary/60 backdrop-blur-sm border border-border/50 text-muted-foreground text-sm font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-all cursor-default hover:scale-110 hover:shadow-lg"
+                className="group px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-lg sm:rounded-xl bg-secondary/60 backdrop-blur-sm border border-border/50 text-muted-foreground text-xs sm:text-sm font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-all cursor-default hover:scale-110 hover:shadow-lg"
                 style={{ animationDelay: `${i * 30}ms` }}
               >
                 <span className="relative z-10">{skill}</span>
@@ -520,8 +536,8 @@ const SkillsSection = () => {
           </div>
         </div>
 
-        {/* Bottom Decorative */}
-        <div className="absolute -bottom-10 left-1/3 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+        {/* Bottom Decorative - Hidden on mobile */}
+        <div className="absolute -bottom-10 left-1/3 w-72 h-72 bg-primary/5 rounded-full blur-3xl hidden md:block" />
       </div>
 
       <style>{`
@@ -608,6 +624,15 @@ const SkillsSection = () => {
 
         .floating-delayed {
           animation: floatDelayed 10s ease-in-out infinite;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </section>

@@ -140,7 +140,7 @@ const ContactSection = () => {
       icon: Mail,
       label: "Email",
       value: "umidjongafforov175@gmail.com",
-      href: "mailto:umidjon@example.com",
+      href: "mailto:umidjongafforov175@gmail.com",
       gradient: "from-blue-500 to-cyan-500",
       bgColor: "bg-blue-500/10",
     },
@@ -155,7 +155,7 @@ const ContactSection = () => {
     {
       icon: MapPin,
       label: "Location",
-      value: "Bukhara Uzbekistan",
+      value: "Bukhara, Uzbekistan",
       href: "#",
       gradient: "from-purple-500 to-pink-500",
       bgColor: "bg-purple-500/10",
@@ -194,12 +194,12 @@ const ContactSection = () => {
 
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] floating" />
-      <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px] floating-delayed" />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] floating hidden md:block" />
+      <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px] floating-delayed hidden md:block" />
 
-      {/* Grid Pattern */}
+      {/* Grid Pattern - Hidden on mobile */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.02] hidden sm:block"
         style={{
           backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
                            linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
@@ -207,75 +207,78 @@ const ContactSection = () => {
         }}
       />
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 right-10 text-6xl font-mono text-primary/5 animate-float">
+      {/* Decorative Elements - Hidden on mobile */}
+      <div className="absolute top-20 right-10 text-4xl md:text-6xl font-mono text-primary/5 animate-float hidden lg:block">
         @
       </div>
-      <div className="absolute bottom-20 left-10 text-6xl font-mono text-purple-500/5 animate-float-delayed">
+      <div className="absolute bottom-20 left-10 text-4xl md:text-6xl font-mono text-purple-500/5 animate-float-delayed hidden lg:block">
         #
       </div>
 
-      <div className="container mx-auto relative z-10">
+      <div className="container mx-auto relative z-10 px-4 sm:px-6 md:px-8">
         {/* Header */}
-        <div className="text-center mb-16 space-y-6 animate-fade-up">
+        <div className="text-center mb-12 sm:mb-16 space-y-4 sm:space-y-6 animate-fade-up">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm">
-            <MessageCircle size={16} className="text-primary animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm">
+            <MessageCircle
+              size={14}
+              className="sm:w-4 sm:h-4 text-primary animate-pulse"
+            />
             <span className="text-primary font-bold text-xs tracking-wider uppercase">
               {t("contact.info")}
             </span>
-            <Sparkles size={16} className="text-primary" />
+            <Sparkles size={14} className="sm:w-4 sm:h-4 text-primary" />
           </div>
 
           {/* Title */}
           <div>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4 leading-tight px-4">
               <span className="gradient-text">{t("contact.title")}</span>
             </h2>
-            <div className="h-1 w-32 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full mx-auto" />
+            <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full mx-auto" />
           </div>
 
           {/* Subtitle */}
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4">
             {t("contact.subtitle")}
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {/* Contact Info Sidebar */}
-          <div className="lg:col-span-2 space-y-6 animate-fade-up">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6 animate-fade-up">
             {/* Contact Info Card */}
             <div className="group relative">
-              {/* Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+              {/* Glow Effect - Hidden on mobile */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-2xl sm:rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 hidden sm:block" />
 
-              <div className="relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-8 rounded-3xl border border-border/50 shadow-2xl">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-primary" />
+              <div className="relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-border/50 shadow-2xl">
+                <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
+                    <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
-                  <h3 className="font-display text-2xl font-black gradient-text">
+                  <h3 className="font-display text-xl sm:text-2xl font-black gradient-text">
                     {t("contact.info")}
                   </h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {contactInfo.map((item, index) => (
                     <a
                       key={index}
                       href={item.href}
-                      className="group/item flex items-start gap-4 p-4 rounded-2xl hover:bg-secondary/60 transition-all duration-300 hover:scale-105"
+                      className="group/item flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:bg-secondary/60 transition-all duration-300 hover:scale-105"
                     >
                       <div
-                        className={`w-14 h-14 rounded-xl ${item.bgColor} flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-lg`}
+                        className={`w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl ${item.bgColor} flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-lg`}
                       >
-                        <item.icon className="w-7 h-7 text-primary" />
+                        <item.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                       </div>
-                      <div className="flex-1">
-                        <p className="text-sm text-muted-foreground font-semibold mb-1">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs sm:text-sm text-muted-foreground font-semibold mb-1">
                           {item.label}
                         </p>
-                        <p className="text-foreground font-bold group-hover/item:text-primary transition-colors">
+                        <p className="text-sm sm:text-base text-foreground font-bold group-hover/item:text-primary transition-colors break-words">
                           {item.value}
                         </p>
                       </div>
@@ -284,47 +287,50 @@ const ContactSection = () => {
                 </div>
 
                 {/* Social Links */}
-                <div className="mt-8 pt-8 border-t border-border/50">
-                  <p className="text-sm text-muted-foreground font-semibold mb-4 flex items-center gap-2">
-                    <Sparkles size={16} className="text-primary" />
+                <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-border/50">
+                  <p className="text-xs sm:text-sm text-muted-foreground font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+                    <Sparkles
+                      size={14}
+                      className="sm:w-4 sm:h-4 text-primary"
+                    />
                     {t("contact.available")}
                   </p>
-                  <div className="flex gap-3">
+                  <div className="flex gap-2 sm:gap-3">
                     {socialLinks.map((social, index) => (
                       <a
                         key={index}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`group/social w-14 h-14 rounded-xl bg-secondary/60 backdrop-blur-sm border border-border/50 flex items-center justify-center text-muted-foreground ${social.color} hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-xl hover:-translate-y-1`}
+                        className={`group/social w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl bg-secondary/60 backdrop-blur-sm border border-border/50 flex items-center justify-center text-muted-foreground ${social.color} hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-xl hover:-translate-y-1`}
                         aria-label={social.label}
                       >
                         <social.icon
-                          size={22}
-                          className="group-hover/social:scale-110 transition-transform"
+                          size={18}
+                          className="sm:w-[22px] sm:h-[22px] group-hover/social:scale-110 transition-transform"
                         />
                       </a>
                     ))}
                   </div>
                 </div>
 
-                {/* Decorative Corner */}
-                <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-primary/10 to-purple-500/10 rounded-full blur-2xl" />
+                {/* Decorative Corner - Hidden on mobile */}
+                <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-primary/10 to-purple-500/10 rounded-full blur-2xl hidden sm:block" />
               </div>
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-6 rounded-2xl border border-border/50 text-center hover:scale-105 transition-transform">
-                <div className="text-3xl font-black gradient-text mb-1">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-border/50 text-center hover:scale-105 transition-transform">
+                <div className="text-2xl sm:text-3xl font-black gradient-text mb-1">
                   &lt;24h
                 </div>
                 <div className="text-xs text-muted-foreground font-semibold">
                   Response Time
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-6 rounded-2xl border border-border/50 text-center hover:scale-105 transition-transform">
-                <div className="text-3xl font-black gradient-text mb-1">
+              <div className="bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-border/50 text-center hover:scale-105 transition-transform">
+                <div className="text-2xl sm:text-3xl font-black gradient-text mb-1">
                   100%
                 </div>
                 <div className="text-xs text-muted-foreground font-semibold">
@@ -337,24 +343,24 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="lg:col-span-3 animate-fade-up-delay-1">
             <div className="group relative">
-              {/* Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+              {/* Glow Effect - Hidden on mobile */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-2xl sm:rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 hidden sm:block" />
 
               <form
                 onSubmit={handleSubmit}
-                className="relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-8 rounded-3xl border border-border/50 shadow-2xl"
+                className="relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-border/50 shadow-2xl"
               >
-                <div className="grid sm:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                   <div className="relative">
                     <label
                       htmlFor="name"
-                      className="block text-sm font-bold text-foreground mb-2 flex items-center gap-2"
+                      className="block text-xs sm:text-sm font-bold text-foreground mb-2 flex items-center gap-2"
                     >
                       {t("contact.name")}
                       {focusedField === "name" && (
                         <Sparkles
-                          size={14}
-                          className="text-primary animate-pulse"
+                          size={12}
+                          className="sm:w-3.5 sm:h-3.5 text-primary animate-pulse"
                         />
                       )}
                     </label>
@@ -369,11 +375,11 @@ const ContactSection = () => {
                         onFocus={() => setFocusedField("name")}
                         onBlur={() => setFocusedField(null)}
                         required
-                        className="w-full px-4 py-4 rounded-xl bg-secondary/60 backdrop-blur-sm border-2 border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground placeholder:text-muted-foreground font-medium"
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-secondary/60 backdrop-blur-sm border-2 border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground placeholder:text-muted-foreground font-medium text-sm sm:text-base"
                         placeholder="John Doe"
                       />
                       {focusedField === "name" && (
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 -z-10 blur-xl" />
+                        <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 -z-10 blur-xl hidden sm:block" />
                       )}
                     </div>
                   </div>
@@ -381,13 +387,13 @@ const ContactSection = () => {
                   <div className="relative">
                     <label
                       htmlFor="email"
-                      className="block text-sm font-bold text-foreground mb-2 flex items-center gap-2"
+                      className="block text-xs sm:text-sm font-bold text-foreground mb-2 flex items-center gap-2"
                     >
                       {t("contact.email")}
                       {focusedField === "email" && (
                         <Sparkles
-                          size={14}
-                          className="text-primary animate-pulse"
+                          size={12}
+                          className="sm:w-3.5 sm:h-3.5 text-primary animate-pulse"
                         />
                       )}
                     </label>
@@ -402,26 +408,26 @@ const ContactSection = () => {
                         onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField(null)}
                         required
-                        className="w-full px-4 py-4 rounded-xl bg-secondary/60 backdrop-blur-sm border-2 border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground placeholder:text-muted-foreground font-medium"
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-secondary/60 backdrop-blur-sm border-2 border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground placeholder:text-muted-foreground font-medium text-sm sm:text-base"
                         placeholder="john@example.com"
                       />
                       {focusedField === "email" && (
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 -z-10 blur-xl" />
+                        <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 -z-10 blur-xl hidden sm:block" />
                       )}
                     </div>
                   </div>
                 </div>
 
-                <div className="mb-6 relative">
+                <div className="mb-4 sm:mb-6 relative">
                   <label
                     htmlFor="message"
-                    className="block text-sm font-bold text-foreground mb-2 flex items-center gap-2"
+                    className="block text-xs sm:text-sm font-bold text-foreground mb-2 flex items-center gap-2"
                   >
                     {t("contact.message")}
                     {focusedField === "message" && (
                       <Sparkles
-                        size={14}
-                        className="text-primary animate-pulse"
+                        size={12}
+                        className="sm:w-3.5 sm:h-3.5 text-primary animate-pulse"
                       />
                     )}
                   </label>
@@ -435,12 +441,12 @@ const ContactSection = () => {
                       onFocus={() => setFocusedField("message")}
                       onBlur={() => setFocusedField(null)}
                       required
-                      rows={6}
-                      className="w-full px-4 py-4 rounded-xl bg-secondary/60 backdrop-blur-sm border-2 border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground placeholder:text-muted-foreground resize-none font-medium"
+                      rows={5}
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-secondary/60 backdrop-blur-sm border-2 border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground placeholder:text-muted-foreground resize-none font-medium text-sm sm:text-base"
                       placeholder="Tell me about your project..."
                     />
                     {focusedField === "message" && (
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 -z-10 blur-xl" />
+                      <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/10 to-purple-500/10 -z-10 blur-xl hidden sm:block" />
                     )}
                   </div>
                 </div>
@@ -452,17 +458,17 @@ const ContactSection = () => {
                   className="w-full group/btn relative overflow-hidden"
                   disabled={isSubmitting}
                 >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
+                  <span className="relative z-10 flex items-center justify-center gap-2 text-sm sm:text-base">
                     {isSubmitting ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         {t("contact.sending")}
                       </>
                     ) : (
                       <>
                         <Send
-                          size={18}
-                          className="group-hover/btn:rotate-12 transition-transform"
+                          size={16}
+                          className="sm:w-[18px] sm:h-[18px] group-hover/btn:rotate-12 transition-transform"
                         />
                         {t("contact.send")}
                       </>
@@ -473,9 +479,12 @@ const ContactSection = () => {
 
                 {/* Success Message */}
                 {!isSubmitting && formData.name === "" && (
-                  <div className="mt-4 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hidden last-of-type:flex items-center gap-2">
-                    <CheckCircle2 size={18} className="text-green-500" />
-                    <span className="text-sm text-green-600 dark:text-green-400 font-semibold">
+                  <div className="mt-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-green-500/10 border border-green-500/20 hidden last-of-type:flex items-center gap-2">
+                    <CheckCircle2
+                      size={16}
+                      className="sm:w-[18px] sm:h-[18px] text-green-500 flex-shrink-0"
+                    />
+                    <span className="text-xs sm:text-sm text-green-600 dark:text-green-400 font-semibold">
                       Message sent successfully!
                     </span>
                   </div>

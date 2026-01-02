@@ -14,7 +14,9 @@ import { useEffect, useRef } from "react";
 const HeroSection = () => {
   const { t } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mobileCanvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Desktop particles
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -66,6 +68,111 @@ const HeroSection = () => {
     animate();
   }, []);
 
+  // Mobile animated background
+  useEffect(() => {
+    const canvas = mobileCanvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const codeSymbols = [
+      "⚛️",
+      "📱",
+      "🔷",
+      "🟢",
+      "{",
+      "}",
+      "<",
+      ">",
+      "JS",
+      "TS",
+      "React",
+      "Node",
+      "fn",
+      "=>",
+      "const",
+      "let",
+      "+",
+      "=",
+    ];
+
+    class MobileParticle {
+      x: number;
+      y: number;
+      text: string;
+      speed: number;
+      opacity: number;
+      fontSize: number;
+      color: string;
+      rotation: number;
+      rotationSpeed: number;
+
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.text = codeSymbols[Math.floor(Math.random() * codeSymbols.length)];
+        this.speed = 0.2 + Math.random() * 0.4;
+        this.opacity = 0.08 + Math.random() * 0.12;
+        this.fontSize = 14 + Math.random() * 20;
+        const colors = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.01;
+      }
+
+      update() {
+        this.y -= this.speed;
+        this.rotation += this.rotationSpeed;
+        if (this.y < -50) {
+          this.y = canvas.height + 50;
+          this.x = Math.random() * canvas.width;
+          this.text =
+            codeSymbols[Math.floor(Math.random() * codeSymbols.length)];
+        }
+      }
+
+      draw() {
+        if (!ctx) return;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.font = `${this.fontSize}px "JetBrains Mono", monospace`;
+        ctx.fillText(this.text, 0, 0);
+        ctx.restore();
+      }
+    }
+
+    const particles: MobileParticle[] = [];
+    for (let i = 0; i < 30; i++) {
+      particles.push(new MobileParticle());
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((particle) => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    const handleResize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const scrollToProjects = () => {
     const element = document.querySelector("#projects");
     if (element) {
@@ -83,49 +190,27 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 sm:py-16 md:py-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-24">
       {/* Enhanced Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/20 via-background to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-background to-background" />
 
-      {/* Mobile Background Pattern - Shows only on mobile */}
+      {/* Mobile Animated Canvas Background */}
+      <canvas
+        ref={mobileCanvasRef}
+        className="absolute inset-0 pointer-events-none lg:hidden"
+        style={{ width: "100%", height: "100%" }}
+      />
+
+      {/* Mobile Gradient Overlays */}
       <div className="absolute inset-0 lg:hidden">
-        {/* Code Pattern Background */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern
-                id="code-pattern"
-                x="0"
-                y="0"
-                width="100"
-                height="100"
-                patternUnits="userSpaceOnUse"
-              >
-                <text x="10" y="20" className="fill-primary font-mono text-xs">
-                  &lt;/&gt;
-                </text>
-                <text x="60" y="40" className="fill-primary font-mono text-xs">
-                  {}
-                </text>
-                <text x="20" y="60" className="fill-primary font-mono text-xs">
-                  =&gt;
-                </text>
-                <text x="70" y="80" className="fill-primary font-mono text-xs">
-                  fn
-                </text>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#code-pattern)" />
-          </svg>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/80 to-background/95" />
+        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+        <div className="absolute bottom-0 right-0 w-full h-1/3 bg-gradient-to-tl from-purple-500/10 via-transparent to-transparent" />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90" />
-
-        {/* Abstract Shapes for Mobile */}
-        <div className="absolute top-20 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl" />
+        {/* Animated Floating Orbs - Mobile */}
+        <div className="absolute top-1/4 right-0 w-72 h-72 bg-primary/10 rounded-full blur-[100px] animate-float-slow" />
+        <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-purple-500/10 rounded-full blur-[120px] animate-float-slow-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px]" />
       </div>
 
       {/* Animated Grid - Hidden on mobile */}
@@ -139,63 +224,60 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Floating Orbs - Hidden on mobile */}
+      {/* Floating Orbs - Desktop */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] floating hidden lg:block" />
       <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] floating-delayed hidden lg:block" />
 
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center max-w-7xl mx-auto">
           {/* LEFT SIDE - Content */}
-          <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
+          <div className="space-y-5 sm:space-y-6 text-center lg:text-left">
             {/* Status Badge */}
             <div className="animate-fade-up flex justify-center lg:justify-start">
-              <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm">
-                <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+              <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm shadow-lg shadow-primary/5">
+                <span className="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-primary"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-primary"></span>
                 </span>
-                <span className="text-xs font-semibold text-primary">
+                <span className="text-xs sm:text-sm font-bold text-primary tracking-wide">
                   {t("hero.available")}
                 </span>
-                <Sparkles
-                  size={12}
-                  className="text-primary sm:w-3.5 sm:h-3.5"
-                />
+                <Sparkles size={14} className="text-primary sm:w-4 sm:h-4" />
               </div>
             </div>
 
             {/* Main Heading */}
             <div className="animate-fade-up-delay-1">
-              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
-                <span className="text-muted-foreground block sm:inline">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-black leading-tight">
+                <span className="text-muted-foreground/80 block mb-2 sm:mb-0 sm:inline">
                   Hi, I'm
                 </span>
-                <span className="gradient-text relative inline-block mt-2 sm:mt-0 sm:ml-3">
+                <span className="gradient-text relative inline-block mt-1 sm:mt-0 sm:ml-4">
                   Umidjon
-                  <span className="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r from-primary to-purple-500 rounded-full"></span>
+                  <span className="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-1 sm:h-1.5 bg-gradient-to-r from-primary via-purple-500 to-blue-500 rounded-full"></span>
                 </span>
               </h1>
             </div>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl md:text-2xl font-bold text-foreground/90 animate-fade-up-delay-2">
+            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground/90 animate-fade-up-delay-2 px-2">
               {t("hero.tagline")}
             </p>
 
             {/* Description */}
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground/80 leading-relaxed max-w-xl mx-auto lg:mx-0 animate-fade-up-delay-3">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground/80 leading-relaxed max-w-xl mx-auto lg:mx-0 animate-fade-up-delay-3 px-2">
               {t("hero.headline")}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 animate-fade-up-delay-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 animate-fade-up-delay-4 pt-2 px-2">
               <Button
                 variant="hero"
                 size="lg"
                 onClick={scrollToProjects}
-                className="group relative overflow-hidden w-full sm:w-auto"
+                className="group relative overflow-hidden w-full sm:w-auto shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
               >
-                <span className="relative z-10 flex items-center justify-center gap-2">
+                <span className="relative z-10 flex items-center justify-center gap-2 font-bold">
                   {t("hero.cta.projects")}
                   <Code2
                     size={18}
@@ -210,7 +292,7 @@ const HeroSection = () => {
                 className="w-full sm:w-auto"
               >
                 <a href="#contact" className="group">
-                  <span className="flex items-center justify-center gap-2">
+                  <span className="flex items-center justify-center gap-2 font-bold">
                     {t("hero.cta.contact")}
                     <Mail
                       size={16}
@@ -222,65 +304,65 @@ const HeroSection = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3 animate-fade-up-delay-4">
+            <div className="flex items-center justify-center lg:justify-start gap-3 animate-fade-up-delay-4 px-2">
               <a
                 href="https://github.com/umidjon-developer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-secondary/50 hover:bg-secondary border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+                className="group p-3 sm:p-3.5 rounded-xl bg-secondary/60 hover:bg-secondary border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
               >
                 <Github
-                  size={18}
-                  className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
+                  size={20}
+                  className="sm:w-6 sm:h-6 group-hover:scale-110 transition-transform"
                 />
               </a>
               <a
                 href="https://www.linkedin.com/in/umidjon-gafforov-8b151b325/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-secondary/50 hover:bg-secondary border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+                className="group p-3 sm:p-3.5 rounded-xl bg-secondary/60 hover:bg-secondary border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
               >
                 <Linkedin
-                  size={18}
-                  className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
+                  size={20}
+                  className="sm:w-6 sm:h-6 group-hover:scale-110 transition-transform"
                 />
               </a>
               <a
                 href="mailto:umidjongafforov175@gmail.com"
-                className="group p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-secondary/50 hover:bg-secondary border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+                className="group p-3 sm:p-3.5 rounded-xl bg-secondary/60 hover:bg-secondary border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
               >
                 <Mail
-                  size={18}
-                  className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
+                  size={20}
+                  className="sm:w-6 sm:h-6 group-hover:scale-110 transition-transform"
                 />
               </a>
             </div>
 
             {/* Stats */}
-            <div className="flex items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-2 sm:pt-4 animate-fade-up-delay-4">
+            <div className="flex items-center justify-center lg:justify-start gap-6 sm:gap-8 pt-4 animate-fade-up-delay-4 px-2">
               <div className="text-center lg:text-left">
-                <div className="text-xl sm:text-2xl font-black gradient-text">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-black gradient-text">
                   4+
                 </div>
-                <div className="text-xs text-muted-foreground font-semibold">
+                <div className="text-xs sm:text-sm text-muted-foreground font-bold mt-1">
                   Years Exp
                 </div>
               </div>
-              <div className="w-px h-8 sm:h-10 bg-border"></div>
+              <div className="w-px h-12 sm:h-14 bg-border"></div>
               <div className="text-center lg:text-left">
-                <div className="text-xl sm:text-2xl font-black gradient-text">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-black gradient-text">
                   50+
                 </div>
-                <div className="text-xs text-muted-foreground font-semibold">
+                <div className="text-xs sm:text-sm text-muted-foreground font-bold mt-1">
                   Projects
                 </div>
               </div>
-              <div className="w-px h-8 sm:h-10 bg-border"></div>
+              <div className="w-px h-12 sm:h-14 bg-border"></div>
               <div className="text-center lg:text-left">
-                <div className="text-xl sm:text-2xl font-black gradient-text">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-black gradient-text">
                   30+
                 </div>
-                <div className="text-xs text-muted-foreground font-semibold">
+                <div className="text-xs sm:text-sm text-muted-foreground font-bold mt-1">
                   Happy Clients
                 </div>
               </div>
@@ -417,14 +499,14 @@ const HeroSection = () => {
         </div>
 
         {/* Scroll Indicator - Hidden on mobile */}
-        <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
+        <div className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
           <button
             onClick={scrollToProjects}
-            className="group p-2 sm:p-2.5 rounded-full bg-secondary/50 border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+            className="group p-2.5 sm:p-3 rounded-full bg-secondary/60 border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 backdrop-blur-sm"
           >
             <ArrowDown
-              size={18}
-              className="sm:w-5 sm:h-5 group-hover:translate-y-1 transition-transform"
+              size={20}
+              className="sm:w-6 sm:h-6 group-hover:translate-y-1 transition-transform"
             />
           </button>
         </div>
@@ -451,8 +533,34 @@ const HeroSection = () => {
           }
         }
 
+        @keyframes float-slow {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-30px) scale(1.1);
+          }
+        }
+
+        @keyframes float-slow-delayed {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-40px) scale(1.15);
+          }
+        }
+
         .animate-slide-in-right {
           animation: slide-in-right 0.5s ease-out;
+        }
+
+        .animate-float-slow {
+          animation: float-slow 12s ease-in-out infinite;
+        }
+
+        .animate-float-slow-delayed {
+          animation: float-slow-delayed 15s ease-in-out infinite 2s;
         }
       `}</style>
     </section>

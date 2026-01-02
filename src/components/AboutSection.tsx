@@ -171,12 +171,12 @@ const AboutSection = () => {
 
       {/* Gradient Overlays */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5" />
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px] floating" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px] floating-delayed" />
+      <div className="absolute top-0 left-0 w-64 h-64 sm:w-96 sm:h-96 bg-primary/10 rounded-full blur-[80px] sm:blur-[120px] floating hidden sm:block" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 sm:w-[500px] sm:h-[500px] bg-purple-500/10 rounded-full blur-[100px] sm:blur-[150px] floating-delayed hidden sm:block" />
 
-      {/* Grid Pattern */}
+      {/* Grid Pattern - Hidden on mobile */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.02] hidden sm:block"
         style={{
           backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
                            linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
@@ -184,13 +184,13 @@ const AboutSection = () => {
         }}
       />
 
-      <div className="container mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="container mx-auto relative z-10 px-4 sm:px-6 md:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
           {/* Left Content */}
-          <div className="space-y-6 animate-fade-up">
+          <div className="space-y-4 sm:space-y-6 animate-fade-up text-center lg:text-left">
             {/* Section Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-primary font-bold text-xs tracking-wider uppercase">
                 {t("about.title")}
               </span>
@@ -198,14 +198,14 @@ const AboutSection = () => {
 
             {/* Heading */}
             <div>
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4 leading-tight px-4 lg:px-0">
                 <span className="gradient-text">{t("about.subtitle")}</span>
               </h2>
-              <div className="h-1 w-24 bg-gradient-to-r from-primary to-purple-500 rounded-full" />
+              <div className="h-1 w-20 sm:w-24 bg-gradient-to-r from-primary to-purple-500 rounded-full mx-auto lg:mx-0" />
             </div>
 
             {/* Description */}
-            <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed">
+            <div className="space-y-3 sm:space-y-4 text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed">
               <p className="relative pl-4 border-l-2 border-primary/50">
                 {t("about.description")}
               </p>
@@ -215,12 +215,12 @@ const AboutSection = () => {
             </div>
 
             {/* Tech Stack Pills */}
-            <div className="flex flex-wrap gap-2 pt-4">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 pt-2 sm:pt-4">
               {["React", "TypeScript", "Node.js", "Next.js", "Tailwind"].map(
                 (tech, i) => (
                   <div
                     key={tech}
-                    className="px-4 py-2 rounded-lg bg-secondary/60 border border-border/50 text-sm font-semibold text-foreground/80 hover:bg-secondary hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-secondary/60 border border-border/50 text-xs sm:text-sm font-semibold text-foreground/80 hover:bg-secondary hover:border-primary/50 transition-all duration-300 hover:scale-105"
                     style={{ animationDelay: `${i * 100}ms` }}
                   >
                     {tech}
@@ -231,32 +231,34 @@ const AboutSection = () => {
           </div>
 
           {/* Right Content - Enhanced Stats Grid */}
-          <div className="grid grid-cols-2 gap-4 animate-fade-up-delay-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 animate-fade-up-delay-2">
             {highlights.map((item, index) => (
               <div
                 key={index}
                 className="group relative"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Glow Effect */}
+                {/* Glow Effect - Hidden on mobile */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500`}
+                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-xl sm:rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hidden sm:block`}
                 />
 
                 {/* Card */}
                 <div
-                  className={`relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-6 rounded-2xl border ${item.borderColor} hover:border-opacity-60 transition-all duration-300 hover:scale-105 hover:shadow-2xl text-center`}
+                  className={`relative bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur-xl p-4 sm:p-6 rounded-xl sm:rounded-2xl border ${item.borderColor} hover:border-opacity-60 transition-all duration-300 hover:scale-105 hover:shadow-2xl text-center`}
                 >
                   {/* Icon Container */}
-                  <div className="relative mb-4 mx-auto">
+                  <div className="relative mb-3 sm:mb-4 mx-auto">
                     <div
-                      className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center backdrop-blur-sm border ${item.borderColor} group-hover:scale-110 transition-transform duration-300`}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center backdrop-blur-sm border ${item.borderColor} group-hover:scale-110 transition-transform duration-300`}
                     >
-                      <item.icon className={`w-7 h-7 ${item.iconColor}`} />
+                      <item.icon
+                        className={`w-6 h-6 sm:w-7 sm:h-7 ${item.iconColor}`}
+                      />
                     </div>
                     {/* Floating particles */}
                     <div
-                      className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${item.iconColor.replace(
+                      className={`absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 rounded-full ${item.iconColor.replace(
                         "text-",
                         "bg-"
                       )} opacity-60 animate-ping`}
@@ -264,18 +266,18 @@ const AboutSection = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-display text-4xl font-black mb-2 gradient-text">
+                  <h3 className="font-display text-3xl sm:text-4xl font-black mb-1 sm:mb-2 gradient-text">
                     {item.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm font-semibold text-muted-foreground">
+                  <p className="text-xs sm:text-sm font-semibold text-muted-foreground">
                     {item.description}
                   </p>
 
                   {/* Bottom accent line */}
                   <div
-                    className={`mt-4 h-1 w-full bg-gradient-to-r ${item.gradient} rounded-full opacity-50 group-hover:opacity-100 transition-opacity`}
+                    className={`mt-3 sm:mt-4 h-0.5 sm:h-1 w-full bg-gradient-to-r ${item.gradient} rounded-full opacity-50 group-hover:opacity-100 transition-opacity`}
                   />
                 </div>
               </div>
@@ -283,15 +285,15 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Decorative Code Elements */}
+        {/* Decorative Code Elements - Hidden on mobile */}
         <div className="absolute -left-10 top-1/4 opacity-10 hidden lg:block">
-          <div className="font-mono text-6xl text-primary animate-pulse">
+          <div className="font-mono text-4xl md:text-6xl text-primary animate-pulse">
             {"{"}
           </div>
         </div>
         <div className="absolute -right-10 bottom-1/4 opacity-10 hidden lg:block">
           <div
-            className="font-mono text-6xl text-purple-500 animate-pulse"
+            className="font-mono text-4xl md:text-6xl text-purple-500 animate-pulse"
             style={{ animationDelay: "1s" }}
           >
             {"}"}
@@ -311,12 +313,38 @@ const AboutSection = () => {
           }
         }
 
+        @keyframes floating {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-20px) scale(1.05);
+          }
+        }
+
+        @keyframes floatingDelayed {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-30px) scale(1.05);
+          }
+        }
+
         .animate-fade-up {
           animation: fadeUp 0.8s ease-out;
         }
 
         .animate-fade-up-delay-2 {
           animation: fadeUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .floating {
+          animation: floating 8s ease-in-out infinite;
+        }
+
+        .floating-delayed {
+          animation: floatingDelayed 10s ease-in-out infinite;
         }
       `}</style>
     </section>
